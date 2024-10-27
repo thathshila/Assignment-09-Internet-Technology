@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        #kit{
+            width: fit-content;
+            height: fit-content;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        #light-panel{
+            display: flex;
+        }
+        .light{
+            width: 100px;
+            height: 50px;
+            background: white;
+            border: #0e2945 2px solid;
+        }
+
+    </style>
+</head>
+<body>
+<section id="kit">
+    <section id="light-panel">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+
+    </section>
+    <section id="btn-panel">
+        <button id="start-btn">start</button>
+        <button id="stop-btn">stop</button>
+    </section>
+</section>
+<script src="../asserts/lib/jquery-3.7.1.min.js"></script>
+<script>
+    const light_count = 6;
+    let  current_light = -1;
+    let  direction = "RIGHT";
+    let intervalId = null;
+    updateLight = () => {
+
+        if (direction === "RIGHT") {
+            current_light++;
+            $(".light").css("background", "white");
+            $(".light").eq(current_light).css("background", "red");
+            $(".light").eq(current_light-1).css("background", "pink");
+            if (current_light==light_count-1){
+                direction = "LEFT";
+            }
+        }else {
+            current_light--;
+            $(".light").css("background", "white");
+            $(".light").eq(current_light).css("background", "red");
+            $(".light").eq(current_light+1).css("background", "pink");
+            if(current_light==0){
+                direction = "RIGHT";
+            }
+        }
+    }
+    $('#start-btn').on('click',function (){
+        intervalId = setInterval(updateLight,100);
+    });
+    $('#stop-btn').on('click',function (){
+        clearInterval(intervalId);
+    });
+</script>
+</body>
+</html>
